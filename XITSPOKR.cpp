@@ -2,46 +2,39 @@
 using namespace std;
 typedef long long ll;
 
-bool a[100005];
+bool arr[200005];
+
 int main()
 {
-	int i, j, k, n;
-	ll x;
+	ll i, j, n, k, m, x;
 	cin >> n >> x;
-	ll res = 1;
 	for (i = 0; i < n; i++)
-		cin >> a[i];
-	k = a[0];
-	i = 0;
-	j = 0;
-	if (x == 1)
 	{
-		res = 0;
-		for (i = 0; i < n; i++)
-			res += !a[i];
-		cout << res << endl;
-		return 0;
+		cin >> arr[i];
 	}
-	while (true)
+	k = 0;
+	ll res = 1;
+	ll a = 0;
+	for (i = 0; i < n; i++)
 	{
-		if (i == n - 1)
+		k <<= 1;
+		k += (arr[i]);
+		if (k >= x)
 		{
-			break;
+			while (true)
+			{
+				if (arr[a] != 0)
+				{
+					k -= (1 << (i - a));
+					break;
+				}
+				a++;
+			}
+			a++;
 		}
-		if ((k << 1) + a[i + 1] < x)
-		{
-			k <<= 1;
-			k += a[i + 1];
-			res += (i - j + 2);
-			i++;
-		}
-		else
-		{
-			k -= (1 << (i - j)) * a[j];
-			j++;
-		}
+		res += i - a + 1;
 	}
-	cout << res;
+	cout << res - 1 << endl;
 
 	return 0;
 }
